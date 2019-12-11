@@ -50,12 +50,12 @@ def pass200_no_auth_post():
     return jsonify(json=request.json)
 
 
-@app.route('/item', methods=['GET'])
+@app.route('/items', methods=['GET'])
 @jwt_required
 def pass200():
     return jsonify(items=items)
 
-@app.route('/item/<string:item_id>', methods=['GET'])
+@app.route('/items/<string:item_id>', methods=['GET'])
 @jwt_required
 def item_id(item_id):
     item = safe_list_get(items, int(item_id), None)
@@ -64,7 +64,7 @@ def item_id(item_id):
 
     return jsonify(items=item)
 
-@app.route('/item', methods=['POST'])
+@app.route('/items', methods=['POST'])
 @jwt_required
 def pass201():
     item = request.json
@@ -73,7 +73,7 @@ def pass201():
 
     return jsonify(id=len(items)), 201
 
-@app.route('/item/<string:item_id>', methods=['DELETE'])
+@app.route('/items/<string:item_id>', methods=['DELETE'])
 @jwt_required
 def delete(item_id):
     del items[int(item_id)] 
