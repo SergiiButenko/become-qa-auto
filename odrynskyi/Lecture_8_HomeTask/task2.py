@@ -8,9 +8,11 @@ import requests
 
 item_url = 'http://localhost:5002/item/'
 user = f"Alex_{random.randint(0, 100)}"
+# Тут не нужны formatted strings. Просто вызоа рандомизатора
 password = f"{random.randint(0, 9999999)}"
 
 # Get access token
+# Не называй переменные get_bla - это к методам и функциям
 get_token = requests.post(
     'http://localhost:5002/login',
     json={'username': 'test', 'password': 'test'}
@@ -18,13 +20,17 @@ get_token = requests.post(
 token = {'Authorization': f"Bearer {get_token.json()['access_token']}"}
 
 # Create resource
+# Та же фигня со строками. просто передай переменные
 create_response = requests.post(
     'http://localhost:5002/item', json={"login": f"{user}", "password": f"{password}"}, headers=token
 )
+# А если 200, а не 201 - это эррор или всетаки нет
 if create_response.status_code == 201:
     print('POST Success with code 201!')
 else:
     print(f'An error has occurred during POST request. {create_response.status_code}')
+         
+# Строки... не злоупотребляй 
 item_id = f"{create_response.json()['id'] - 1}"
 
 # Check if resource was created
