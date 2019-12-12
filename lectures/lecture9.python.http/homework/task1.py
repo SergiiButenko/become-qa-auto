@@ -18,4 +18,4 @@ for url in ['http://localhost:5002/', 'http://localhost:5002/fail500','http://lo
     except Exception as err:
         print(f'Other error occurred: {err}')
     else:
-        print('Success!')          # если никаких исключений/ ошибок в итерируемой урле не возникло, выводится сообщение об успешном результате
+        print('Success!')          # если никаких исключений/ ошибок в итерируемой урле не возникло, выводится сообщение об успешном результате.
