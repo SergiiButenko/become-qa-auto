@@ -12,7 +12,7 @@ password = 'bye'
 for url in ['http://localhost:5002/basic_auth', 'http://localhost:5002/', 'http://localhost:5002/fail500']:
     try:
         print(f"\nSending GET request to {url}")
-        if url.__contains__('basic_auth'):
+        if url.__contains__('basic_auth'): # SERBUT: Читни, как искать вхождение подстроки. Так тоже можно, но питон про Простоту
             response = requests.get(url, auth=(username, password))
         else:
             response = requests.get(url)

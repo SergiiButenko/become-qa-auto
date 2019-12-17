@@ -13,7 +13,7 @@ driver = webdriver.Chrome()
 driver.maximize_window()
 driver.get("https://google.com/")
 driver.find_element_by_name("q").send_keys("cheese" + Keys.RETURN)
-time.sleep(2)
+time.sleep(2) # <<<<<---- так делать только в редких случаях в виде исключения. Тут бы использовать явные ожидания
 # first_result = driver.find_element_by_css_selector("h3")
 # first_result.click()
 second_result = driver.find_elements_by_css_selector("h3")[1]

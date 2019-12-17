@@ -20,9 +20,9 @@ response = requests.post('http://localhost:5002/item', headers=access_token)
 print('Status code is: {}'.format(response.status_code))
 
 item_id = response.json()['id'] - 1
-
 # не смог взять ресурс - Not exist, так как при создании ресурса получаю {"items": [null, null, null]}
 # в функции получения -> if item is None: abort(400, 'Not exist')
+# SERBUT: потомучто ты ничего не передаешь в теле ПОСТ запроса. передай туда какой-нить обьект
 
 # response = requests.get('http://localhost:5002/item/{}'.format(item_id), headers=access_token)
 # print('Status code is: {}'.format(response.status_code))
