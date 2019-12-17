@@ -1,10 +1,11 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import java.util.Map;
 
 public class TaskTwo {
     private final HttpClient httpClient;
+
+
 
     {
         httpClient = HttpClient.newBuilder()
@@ -29,13 +32,15 @@ public class TaskTwo {
     public TaskTwo() {
     }
 
-    public void get(URI uri) {
+    public void get(URI uri, Map<String, String> headers) {
 
         try {
             System.out.println(uri.toString());
             HttpRequest request = HttpRequest.newBuilder()
                     .GET()
                     .uri(uri)
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", "Bearer "+headers.get("access_token"))
                     .build();
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
@@ -46,27 +51,15 @@ public class TaskTwo {
         }
     }
 
-    public static HttpRequest.BodyPublisher ofFormData(Map<Object, Object> data) {
-        StringBuilder builder = new StringBuilder();
-        for (Map.Entry<Object, Object> entry : data.entrySet()) {
-            if (builder.length() > 0) {
-                builder.append("&");
-            }
-            builder.append(URLEncoder.encode(entry.getKey().toString(), StandardCharsets.UTF_8));
-            builder.append("=");
-            builder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
-        }
-        return HttpRequest.BodyPublishers.ofString(builder.toString());
-    }
-
-    public String post(URI uri, Map<String, String> headers) throws IOException, InterruptedException {
+    public HttpResponse<String> post(URI uri, Map<String, String> headers) throws IOException, InterruptedException {
         Gson gson = new Gson();
-        String json = gson.toJson(myObject)
+
         HttpRequest request = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(myObject)))
+                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(headers)))
                 .uri(uri)
 //                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
-                   .header("Content-Type", "application/json")
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer "+headers.get("access_token"))
                 .build();
 
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -75,15 +68,40 @@ public class TaskTwo {
         System.out.println(response.statusCode());
 
         // print response body
-        return response.toString();
+
+
+        return response;
 
     }
 
-    public void login(String login, String password) throws IOException, InterruptedException {
+    public HttpResponse<String> login(String login, String password) throws IOException, InterruptedException {
         Map<String, String> headers = new HashMap<>();
         headers.put("username", "test");
         headers.put("password", "test");
-        System.out.println(post(URI.create("http://localhost:5002/login"), headers));
+       return post(URI.create("http://localhost:5002/login"), headers);
+
+    }
+
+    public HttpResponse<String> delete(URI uri, Map<String, String> headers) throws IOException, InterruptedException {
+        Gson gson = new Gson();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .DELETE()
+                .uri(uri)
+//                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer "+headers.get("access_token"))
+                .build();
+
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        // print status code
+        System.out.println(response.statusCode());
+
+        // print response body
+
+
+        return response;
 
     }
 

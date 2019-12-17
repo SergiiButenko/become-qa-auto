@@ -1,3 +1,5 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
@@ -9,7 +11,10 @@ import java.util.HashMap;
 
 public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
-        TaskTwo.getInstance(). login("test","test");
-        TaskTwo.getInstance().post(URI.create("http://localhost:5002/items"),new HashMap<>());
+        ObjectMapper mapper = new ObjectMapper();
+        HashMap<String, String> result =mapper.readValue(TaskTwo.getInstance(). login("test","test").body(), HashMap.class);
+        TaskTwo.getInstance().post(URI.create("http://localhost:5002/items"),result);
+        TaskTwo.getInstance().get(URI.create("http://localhost:5002/items"),result);
+        TaskTwo.getInstance().delete(URI.create("http://localhost:5002/items/0"),result);
     }
 }
