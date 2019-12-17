@@ -9,4 +9,4 @@ def age_yield():
 
 def test_age_s_t(age_yield):
     """Use fixture return value in a test."""
-    assert age_yield == 43
+    assert age_yield == 44

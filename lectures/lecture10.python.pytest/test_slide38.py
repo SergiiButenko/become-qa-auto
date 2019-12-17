@@ -1,12 +1,9 @@
 import pytest
 
 @pytest.fixture()
-def age_yield():
-    print("setup user")
-    yield 43
-    print("remove user")
+def age():
+    return 42
 
-
-def test_age_s_t(age_yield):
+def test_age(age):
     """Use fixture return value in a test."""
-    assert age_yield == 43
+    assert age == 42
