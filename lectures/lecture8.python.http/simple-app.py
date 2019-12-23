@@ -11,6 +11,7 @@ from datetime import timedelta
 from flask_caching import Cache
 import time
 
+
 config = {
     "DEBUG": True,          # some Flask specific configs
     "CACHE_TYPE": "simple", # Flask-Caching related configs
