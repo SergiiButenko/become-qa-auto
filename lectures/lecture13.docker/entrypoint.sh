@@ -1,1 +1,1 @@
-echo "THIS IS SPARTAAAA"
+pytest
