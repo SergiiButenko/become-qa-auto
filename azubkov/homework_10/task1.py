@@ -2,13 +2,11 @@
 # Написать позитивные тесты для проверки: 
 # 1. Пользователь test может авторизироваться с паролем test
 # 2. Пользователь test может создать ресурс item - POST
-# 3. Пользователь test может прочитать ресурс item - GET
-# 4. Пользователь test может удалить ресурс item - DELETE
 
-# Написать пару негативных тестов. 
 
-import requests
-import pytest
+
+
+
 
 login_data = {"username": "test", "password": "test"}
 item_data = "item_value"
