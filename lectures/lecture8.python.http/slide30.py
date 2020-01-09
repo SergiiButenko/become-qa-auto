@@ -1,7 +1,7 @@
 import requests
 from requests.auth import HTTPBasicAuth
 
-response = requests.post(
+response = requests.get(
     'http://localhost:5002/basic_auth',
     auth=HTTPBasicAuth('sergii', 'hello')
 )

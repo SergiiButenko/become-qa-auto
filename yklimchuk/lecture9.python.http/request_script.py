@@ -1,11 +1,11 @@
 # import requests
 #
-# #response = requests.get('http://localhost:5002/')
-# #print(response.__dict__)
-#
-# # response = requests.get('http://localhost:5002/')
-# # print(response.status_code)
-# # print(response.json())
+# response = requests.get('https://172.22.121.189/api/v1/devices/')
+# print(response.__dict__)
+# #
+# # # response = requests.get('http://localhost:5002/')
+# print(response.status_code)
+# print(response.json())
 # # response2 = requests.get('http://localhost:5002/fail500')
 # # print(response2.status_code)
 # # print(response.json())
@@ -18,15 +18,14 @@
 #
 # json_response = response.json()
 
-# import requests
-# from requests.auth import HTTPBasicAuth
+import requests
+from requests.auth import HTTPBasicAuth
+response = requests.post(
+    'https://172.22.121.189/api/v1/devices/'/basic_auth,
+    auth=HTTPBasicAuth('yura', '123456789')
+)
 
-# response = requests.get(
-#     'http://localhost:5002/basic_auth',
-#     auth=HTTPBasicAuth('sergii', 'hello')
-# )
-#
-# print(response.text)
+print(response.text)
 
 # import requests
 #

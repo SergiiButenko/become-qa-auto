@@ -1,0 +1,8 @@
+# build image with dockerfile in current dir
+$ sudo docker build -t image_home_task13 .
+
+# make dir for output of test results in docker container
+$ mkdir test_results_from_container
+
+# run containerHome13 mapped to 
+$ sudo docker run --name containerHome13 -v "$PWD"/test_results_from_container:/app/output image_home_task13
