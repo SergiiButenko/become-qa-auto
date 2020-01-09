@@ -1,7 +1,7 @@
-import requests, json
-from base_api import BaseAPI
+import requests
 
-class ItemsAPI:
+
+class BaseAPI:
     url = 'http://localhost:5002/items'
 
     status_codes = {'OK': 200,
@@ -12,18 +12,16 @@ class ItemsAPI:
 
     def __init__(self, url=url):
         self.url = url
-        self.api_provider = BaseAPI()
+        self.api_provider = 
 
-    def post_item(self, item_data, token):
-        data = ""
+    def post(self, url, data, token):
+        return requests.post(self.url, json=item_data, headers=token)
 
-        return self.api_provider.post(self.url, json=item_data, headers=token)
-
-    def get_item(self, item_id, token):
+    def get(self, item_id, token):
         return requests.get(self.url + item_id, headers=token)
 
-    def delete_item(self, item_id, token):
+    def delete(self, item_id, token):
         return requests.delete(self.url + item_id, headers=token)
 
-    def get_all_items(self, token):
-        return requests.get(self.url, headers=token)
+    def put(self):
+        pass
