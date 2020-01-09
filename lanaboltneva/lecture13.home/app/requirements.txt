@@ -2,3 +2,4 @@ Flask==1.1.1
 flask_httpauth
 flask_jwt_extended
 Flask-Caching
+requests==2.22.0

@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+    app:
+      image: simple_app
+      expose: 5002
+      ports: 
+        - 5002:5002
+
+    tests:
+      image: tests
+      depends_on: 
+        - app

@@ -25,7 +25,7 @@ expected_status_codes = {'OK': 200, 'Created': 201, 'Bad Request': 400, 'Unautho
 @pytest.fixture(scope = 'session')
 def user_authorization(user_credentials = user_test_credentials):
     response = requests.post(
-    'http://localhost:5002/login',
+    'http://172.22.106.222:5002/login',
     json = user_credentials
     )
 
@@ -38,7 +38,7 @@ def user_authorization(user_credentials = user_test_credentials):
 
 @pytest.fixture(scope = 'function')
 def create_item_response(user_authorization, item_data = expected_item_data):  
-    response_create_item = requests.post('http://localhost:5002/items',
+    response_create_item = requests.post('http://172.22.106.222:5002/items',
     headers = user_authorization['login_token'], 
     json = item_data)
 
@@ -64,7 +64,7 @@ def test_verify_that_user_is_able_to_create_item_via_POST_request(create_item_re
 
 # 3. Пользователь test может прочитать ресурс item - GET
 def test_verify_that_user_is_able_to_read_item_via_GET_request(user_authorization, create_item_response):
-    actual_get_response_item = requests.get('http://localhost:5002/items/{}'.format(create_item_response['created_item_id']),
+    actual_get_response_item = requests.get('http://172.22.106.222:5002/items/{}'.format(create_item_response['created_item_id']),
      headers = user_authorization['login_token'])
     
     json_response = actual_get_response_item.json()
@@ -75,20 +75,20 @@ def test_verify_that_user_is_able_to_read_item_via_GET_request(user_authorizatio
 
 # 4. Пользователь test может удалить ресурс item - DELETE
 def test_verify_that_user_is_able_to_delete_item_via_DELETE_request(user_authorization, create_item_response):
-    actual_response_delete_item = requests.delete('http://localhost:5002/items/{}'.format(create_item_response['created_item_id']),
+    actual_response_delete_item = requests.delete('http://172.22.106.222:5002/items/{}'.format(create_item_response['created_item_id']),
      headers = user_authorization['login_token'])
      
     assert actual_response_delete_item.status_code == expected_status_codes['OK']
 
 # 5. Негативная проверка: проверить, что пользователь test НЕ может авторезироваться с невалидным паролем
 def test_verify_that_user_receives_401_error_if_logins_with_invalid_password(user_credentials = user_with_invalid_credentials):
-    actual_not_authorized_response = requests.post('http://localhost:5002/login', json = user_credentials)
+    actual_not_authorized_response = requests.post('http://172.22.106.222:5002/login', json = user_credentials)
 
     assert actual_not_authorized_response.status_code == expected_status_codes['Unauthorized']
 
 # 6. Негативная проверка: проверить, что пользователь test НЕ может прочитать несуществующий ресурс item
 def test_verify_that_user_receives_400_error_if_tries_to_read_nonexistent_item_via_GET_request(user_authorization, create_item_response):
-    actual_get_response_nonexistent_item = requests.get('http://localhost:5002/items/{}'.format(create_item_response['created_item_id'] + 1),
+    actual_get_response_nonexistent_item = requests.get('http://172.22.106.222:5002/items/{}'.format(create_item_response['created_item_id'] + 1),
      headers = user_authorization['login_token'])
     
     assert actual_get_response_nonexistent_item.status_code == expected_status_codes['Bad Request']

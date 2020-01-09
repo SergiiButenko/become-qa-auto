@@ -9,6 +9,5 @@ RUN pip3 install pytest
 RUN pip3 install requests
 COPY app/* ./
 RUN pip3 install -r requirements.txt
-EXPOSE 5002/tcp
-EXPOSE 5002/udp
+EXPOSE 5002
 ENTRYPOINT [ "python3", "simple-app.py", "FOREGROUND" ]
